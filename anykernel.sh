@@ -44,18 +44,18 @@ mount -o remount,rw /system;
 mount -o remount,rw /vendor;
 
 ## AnyKernel file attributes
-# set permissions/ownership for included ramdisk files
-chmod -R 750 $ramdisk/*;
-chmod -R 755 $ramdisk/sbin;
-chmod -R root:root $ramdisk/*;
+# set permissions/ownership for included RAMDISK files
+chmod -R 750 $RAMDISK/*;
+chmod -R 755 $RAMDISK/sbin;
+chmod -R root:root $RAMDISK/*;
 
 # boot install
-dump_boot; # use split_boot to skip ramdisk unpack, e.g. for devices with init_boot ramdisk
+dump_boot; # use split_boot to skip RAMDISK unpack, e.g. for devices with init_boot RAMDISK
 
-#Remove old kernel stuffs from ramdisk
+#Remove old kernel stuffs from RAMDISK
 ui_print "cleaning up..."
-rm -rf $ramdisk/*.sh
-rm -rf $ramdisk/*.rc
+rm -rf $RAMDISK/*.sh
+rm -rf $RAMDISK/*.rc
 
 # activate kernelsu by boot cmdline
 patch_cmdline kernelsu.enabled kernelsu.enabled=1
@@ -66,7 +66,7 @@ patch_cmdline use_new_nvtouch use_new_nvtouch=0
 # activate kernelsu safemode by boot cmdline
 patch_cmdline kernelsu.safemode kernelsu.safemode=0
 
-write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_boot ramdisk
+write_boot; # use flash_boot to skip RAMDISK repack, e.g. for devices with init_boot RAMDISK
 ## end boot install
 
 
@@ -86,7 +86,7 @@ write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_
 #reset_ak;
 
 # init_boot install
-#dump_boot; # unpack ramdisk since it is the new first stage init ramdisk where overlay.d must go
+#dump_boot; # unpack RAMDISK since it is the new first stage init RAMDISK where overlay.d must go
 
 #write_boot;
 ## end init_boot install
@@ -102,7 +102,7 @@ write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_
 #reset_ak;
 
 # vendor_kernel_boot install
-#split_boot; # skip unpack/repack ramdisk, e.g. for dtb on devices with hdr v4 and vendor_kernel_boot
+#split_boot; # skip unpack/repack RAMDISK, e.g. for dtb on devices with hdr v4 and vendor_kernel_boot
 
 #flash_boot;
 ## end vendor_kernel_boot install
@@ -124,7 +124,7 @@ write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_
 #reset_ak;
 
 # vendor_boot install
-#dump_boot; # use split_boot to skip ramdisk unpack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
+#dump_boot; # use split_boot to skip RAMDISK unpack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
 
-#write_boot; # use flash_boot to skip ramdisk repack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
+#write_boot; # use flash_boot to skip RAMDISK repack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
 ## end vendor_boot install
